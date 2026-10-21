@@ -2,8 +2,7 @@
 
 ## What we do?
 
-We create a Ruby library catalog system to demonstrate the main
-object-oriented programming principles:
+We create a Ruby library catalog system to demonstrate the main object-oriented programming principles:
 
 - **Class design**
 - **Inheritance**
@@ -16,8 +15,7 @@ The system manages three types of library items:
 - **DVDs**
 - **CDs**
 
-Every item has common properties such as a title, an author or creator, and a
-publication year. Each derived class also has a property specific to its type.
+Every item has common properties such as a title, an author or creator, and a publication year. Each derived class also has a property specific to its type.
 
 ![output example](./img/output.png)
 
@@ -26,8 +24,7 @@ and again after all items are added to the library.
 
 ## Base Class: LibraryItem
 
-The `LibraryItem` class contains the properties and behavior shared by all
-library items:
+The `LibraryItem` class contains the properties and behavior shared by all library items:
 
 ```ruby
 class LibraryItem
@@ -47,18 +44,15 @@ class LibraryItem
 end
 ```
 
-The `attr_reader` declarations provide read-only access to the common
-properties. The `initialize` method sets the values when an item is created.
+The `attr_reader` declarations provide read-only access to the common properties. The `initialize` method sets the values when an item is created.
 
 ## Derived Classes
 
-`Book`, `DVD`, and `CD` inherit from `LibraryItem`. They reuse the common
-properties and add information specific to each type.
+`Book`, `DVD`, and `CD` inherit from `LibraryItem`. They reuse the common properties and add information specific to each type.
 
 ### Book
 
-A book has an additional `genre` property. Its `display_info` method calls the
-base implementation with `super` and then displays the genre:
+A book has an additional `genre` property. Its `display_info` method calls the base implementation with `super` and then displays the genre:
 
 ```ruby
 class Book < LibraryItem
@@ -78,8 +72,7 @@ end
 
 ### DVD
 
-A DVD stores a `director` and a `genre`. The director is passed to the base
-class as the creator of the item:
+A DVD stores a `director` and a `genre`. The director is passed to the base class as the creator of the item:
 
 ```ruby
 class DVD < LibraryItem
@@ -109,23 +102,17 @@ class CD < LibraryItem
 end
 ```
 
-Each derived class defines its own `display_info` method, so it can print both
-the common details and the type-specific details.
+Each derived class defines its own `display_info` method, so it can print both the common details and the type-specific details.
 
 ## Encapsulation
 
-Encapsulation is implemented by storing values in instance variables such as
-`@title`, `@author`, and `@genre`. These variables are accessed through
-`attr_reader`, which allows values to be read without exposing direct
-modification methods.
+Encapsulation is implemented by storing values in instance variables such as `@title`, `@author`, and `@genre`. These variables are accessed through `attr_reader`, which allows values to be read without exposing direct modification methods.
 
-The internal collection of items is also encapsulated inside the `Library`
-class using the `@items` instance variable.
+The internal collection of items is also encapsulated inside the `Library` class using the `@items` instance variable.
 
 ## Library Class
 
-The `Library` class stores and manages a collection of different library
-items:
+The `Library` class stores and manages a collection of different library items:
 
 ```ruby
 class Library
@@ -171,6 +158,4 @@ def display_all_items
 end
 ```
 
-The `@items` array contains `Book`, `DVD`, and `CD` objects. The same
-`item.display_info` call is used for every object, but Ruby executes the
-appropriate implementation according to the item's actual type.
+The `@items` array contains `Book`, `DVD`, and `CD` objects. The same `item.display_info` call is used for every object, but Ruby executes the appropriate implementation according to the item's actual type.
