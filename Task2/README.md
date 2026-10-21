@@ -4,57 +4,20 @@
 
 In this task we writе a C# program to dеmonstratе dynamic and static binding in OOP. Dеmonstratе thе usagе of virtual, nеw and ovеrridе kеywords
 
-Both examples contain a `Superclass` and a `Subclass`. Each class has a
-`Print` method that writes messages to the console.
+Both examples contain a `Superclass` and a `Subclass`. Each class has a `Print` method that writes messages to the console.
 
+In both codes result is same but the way of getting it is different
 ![output example](./img/output.png)
 
-The purpose is to understand how C# selects a method when a base class and a
-derived class contain methods with the same name.
+The purpose is to understand how C# selects a method when a base class and a derived class contain methods with the same name.
 
-## Static Binding
-
-In static or early binding the binding of all the static, private, and final methods is done at compile-time by the compiler. 
-
-In [Part2static.cs](./Part2static.cs), the `Subclass` declares another static
-`Print` method using the `new` keyword:
-
-```csharp
-public class Superclass
-{
-    public static void Print()
-    {
-        Console.WriteLine("superclass is called");
-    }
-}
-
-public class Subclass : Superclass
-{
-    public new static void Print()
-    {
-        Console.WriteLine("subclass is called");
-    }
-}
-```
-
-The methods are called through their class names:
-
-```csharp
-Superclass.Print();
-Subclass.Print();
-```
-
-The `new` keyword hides the method inherited from `Superclass`. Since both
-methods are static, no object is required and the calls are resolved at
-compile time.
+The `new` keyword hides a base-class method, while `override` replaces a virtual base-class method and enables runtime polymorphism.
 
 ## Dynamic Binding
 
-Dynamic binding is also called runtime binding. The method to call is selected
-at runtime according to the actual type of the object.
+Dynamic binding is also called runtime binding. The method to call is selected at runtime according to the actual type of the object.
 
-In [Part2dynamic.cs](./Part2dynamic.cs), the base class method is marked with
-`virtual`, allowing a derived class to replace its implementation:
+the base class method is marked with `virtual`, allowing a derived class to replace its implementation:
 
 ```csharp
 public class Superclass
@@ -84,29 +47,47 @@ A.Print();
 B.Print();
 ```
 
-Although `B` has the compile-time type `Superclass`, it refers to a
-`Subclass` object. Therefore, the overridden method in `Subclass` is selected
-at runtime:
+even tho we call to object overwrite helps us get already changed value
 
 ```text
 superclass is called
 subclass is called
 ```
 
-## Difference Between the Examples
+## Static Binding
 
-| Binding type | Keywords | Method selection |
-| --- | --- | --- |
-| Static binding | `new`, `static` | At compile time |
-| Dynamic binding | `virtual`, `override` | At runtime |
+In static or early binding the binding of all the static, private, and final methods is done at compile-time by the compiler. 
 
-The `new` keyword hides a base-class method, while `override` replaces a
-virtual base-class method and enables runtime polymorphism.
+In [Part2static.cs](./Part2static.cs), the `Subclass` declares another static
+`Print` method using the `new` keyword:
 
-## Java and C# Comparison
+In code for static code we see that `Subclass` tries to hide its Parent's `Print()` method using `new` keyword. 
+```csharp
+public class Superclass
+{
+    public static void Print()
+    {
+        Console.WriteLine("superclass is called");
+    }
+}
 
-Java allows a static method to be called through an object reference:
+public class Subclass : Superclass
+{
+    public new static void Print()
+    {
+        Console.WriteLine("subclass is called");
+    }
+}
+```
 
+The methods are called through their class names:
+
+```csharp
+Superclass.Print();
+Subclass.Print();
+```
+
+unlike in Java we cannot call static through an object reference
 ```java
 Superclass A = new Superclass();
 Superclass B = new Subclass();
@@ -115,35 +96,16 @@ A.Print();
 B.Print();
 ```
 
-However, these calls are still resolved using the reference type, not the
-actual object type. Therefore, both calls invoke `Superclass.Print()`. Java
-allows this syntax, but it is usually discouraged because it can be
-misleading. The recommended syntax is:
-
-```java
-Superclass.Print();
-Subclass.Print();
-```
-
-C# does not allow a static method to be called through an object reference:
+C# doesnt allow that since you are calling an instance method, which could change the state of the object or work on/with the object data in some way. A static method is not working with/on the object instance a, so purely from a code readibility/maintainablity perspective, what you want just makes things more error-prone since it goes against intuition/expectations when reading the code
 
 ```csharp
 Superclass B = new Subclass();
 B.Print(); // Compile-time error
 ```
 
-In C#, static methods must be called through the class name:
-
-```csharp
-Superclass.Print();
-Subclass.Print();
+in case it would be possible we would get 
+```cmd
+superclass is called
+superclass is called
 ```
-
-This makes it clear that static binding is being used. For runtime
-polymorphism, both Java and C# use instance methods. In C#, this is achieved
-with `virtual` and `override`:
-
-```csharp
-Superclass B = new Subclass();
-B.Print(); // subclass is called
-```
+as result
