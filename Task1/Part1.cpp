@@ -66,16 +66,16 @@ double TimeCalc(Function func) {
 }
 
 int main() {
-    cout << "Array size: " << N << " integers\n";
-    cout << "Function calls: " << CALLS << "\n\n";
+    cout << "Array size:" << N << " integers\n";
+    cout << "Function calls:" << CALLS << "\n\n";
 
     double staticTime = TimeCalc(staticArray);
     double stackTime  = TimeCalc(stackArray);
     double heapTime   = TimeCalc(heapArray);
 
-    cout << "Static array: " << staticTime << " ms\n";
-    cout << "Stack array:  " << stackTime  << " ms\n";
-    cout << "Heap array:   " << heapTime   << " ms\n";
+    cout << "Static array:" << staticTime << "ms\n";
+    cout << "Stack array:" << stackTime << "ms\n";
+    cout << "Heap array:" << heapTime << "ms\n";
 
     return 0;
 }
