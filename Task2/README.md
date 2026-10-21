@@ -58,9 +58,6 @@ subclass is called
 
 In static or early binding the binding of all the static, private, and final methods is done at compile-time by the compiler. 
 
-In [Part2static.cs](./Part2static.cs), the `Subclass` declares another static
-`Print` method using the `new` keyword:
-
 In code for static code we see that `Subclass` tries to hide its Parent's `Print()` method using `new` keyword. 
 ```csharp
 public class Superclass
